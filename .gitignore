@@ -1,0 +1,6 @@
+# Example .gitignore
+*.log
+*.exe
+HCalc/Android/
+HCalc/Win32/
+.env
