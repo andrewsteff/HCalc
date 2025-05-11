@@ -29,7 +29,7 @@ type
     procedure SetOperator(op: TOperatorEnum);
     procedure Equals;
     procedure CancelAll;
-    procedure CalcMemory(mdirection: integer);
+    procedure CalcMemory(mdir: integer);
   end;
 
 implementation
@@ -232,14 +232,14 @@ begin
   if (strOperand = '0') or (strOperand = '') or (FOperandClosed) then result := true;
 end;
 
-procedure TCalculator.CalcMemory(mdirection: integer);
+procedure TCalculator.CalcMemory(mdir: integer);
 begin
   if (FOperNum = 2) then
   Equals;
-  if mdirection = 0 then
+  if mdir = 0 then
     FMemory := StrToFloatDef(FOperand[1], 0)
   else
-    FMemory := FMemory + mdirection * StrToFloatDef(FOperand[1], 0);
+    FMemory := FMemory + mdir * StrToFloatDef(FOperand[1], 0);
   FOperandClosed := true;
   FDisplay.UpdateUI(FOperand[FOperNum], FHistory.HistoryToString, FMemory);
 end;

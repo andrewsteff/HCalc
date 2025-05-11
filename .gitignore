@@ -1,6 +1,7 @@
 # Example .gitignore
 *.log
 *.exe
+HCalc/__history/
 HCalc/Android/
 HCalc/Win32/
 .env
