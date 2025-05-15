@@ -66,6 +66,7 @@ implementation
 procedure TFormCalc.FormCreate(Sender: TObject);
 begin
   FCalculator := TCalculator.Create(self);
+  lblHistory.Text := '';
 end;
 
 procedure TFormCalc.FormKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -167,6 +168,7 @@ var iFontSize: integer;
 begin
   iFontSize := 72;
   if length(strText) > 8 then iFontSize := 36;
+  if length(strText) > 16 then iFontSize := 24;
   if txtMonitor.Font.Size <> iFontSize then
   txtMonitor.Font.Size := iFontSize;
   txtMonitor.Text := strText;

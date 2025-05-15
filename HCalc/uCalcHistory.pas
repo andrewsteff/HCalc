@@ -21,11 +21,16 @@ implementation
 function TCalcHistory.HistoryToString: string;
 var
   iLen: integer;
+  iMax: integer;
 begin
+  iMax := 160;
   result := '';
-  for iLen := Low(FArrHist) to High(FArrHist) do
+  for iLen := High(FArrHist) downto Low(FArrHist) do
   begin
-    result := result + ' ' + FArrHist[iLen];
+    if length(FArrHist[iLen] + ' ' + result) <= iMax  then
+    result := FArrHist[iLen] + ' ' + result
+    else
+    break;
   end;
 end;
 
