@@ -3,7 +3,8 @@ unit FrmCalc;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  System.SysUtils, System.Types, System.UITypes, System.Classes,
+  System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.Edit,
   uInterfaces, uCalculator;
@@ -38,7 +39,8 @@ type
     lblHistory: TLabel;
     lblMemory: TLabel;
     procedure FormCreate(Sender: TObject);
-    procedure FormKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     procedure btnEqualClick(Sender: TObject);
     procedure btnPointClick(Sender: TObject);
@@ -51,7 +53,8 @@ type
     FCalculator: ICalculator;
   public
     { Public declarations }
-    procedure UpdateUI(strText: string; strHistory: string; dMemory: double);
+    procedure UpdateUI(intOrdNum: integer; strText: string; strHistory: string;
+      dMemory: double);
   end;
 
 var
@@ -60,7 +63,6 @@ var
 implementation
 
 {$R *.fmx}
-
 // uses uCalculator;
 
 procedure TFormCalc.FormCreate(Sender: TObject);
@@ -69,7 +71,8 @@ begin
   lblHistory.Text := '';
 end;
 
-procedure TFormCalc.FormKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+procedure TFormCalc.FormKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
 begin
   // if Key = VK_ESCAPE then begin
   // FCalculator.CancelAll; Key := 0; end
@@ -163,23 +166,46 @@ begin
   // ActiveControl := txtHistory; txtHistory.SelStart := length(txtHistory.Text); txtHistory.SelLength := 0;
 end;
 
-procedure TFormCalc.UpdateUI(strText: string; strHistory: string; dMemory: double);
-var iFontSize: integer;
+procedure TFormCalc.UpdateUI(intOrdNum: integer; strText: string;
+  strHistory: string; dMemory: double);
+var
+  iFontSize: integer;
+  bMemNotEmpty: boolean;
 begin
+  bMemNotEmpty := false;
+  if dMemory <> 0 then
+    bMemNotEmpty := true;
+
   iFontSize := 72;
-  if length(strText) > 8 then iFontSize := 36;
-  if length(strText) > 16 then iFontSize := 24;
+  if length(strText) > 8 then
+    iFontSize := 36;
+  if length(strText) > 16 then
+    iFontSize := 24;
   if txtMonitor.Font.Size <> iFontSize then
-  txtMonitor.Font.Size := iFontSize;
+    txtMonitor.Font.Size := iFontSize;
   txtMonitor.Text := strText;
 
   iFontSize := 16;
-  if length(strHistory) > 80 then iFontSize := 10;
+  if length(strHistory) > 80 then
+    iFontSize := 10;
   if lblHistory.Font.Size <> iFontSize then
-  lblHistory.Font.Size := iFontSize;
+    lblHistory.Font.Size := iFontSize;
   lblHistory.Text := strHistory;
 
-  if trunc(abs(dMemory)) = 0 then
+  if (intOrdNum = 2) and (bMemNotEmpty) then
+  begin
+    btnMem.Text := 'Mr';
+    btnMPlus.Text := 'Mr+';
+    btnMMinus.Text := 'Mr-';
+  end
+  else
+  begin
+    btnMem.Text := 'M';
+    btnMPlus.Text := 'M+';
+    btnMMinus.Text := 'M-';
+  end;
+
+  if dMemory = 0 then
     lblMemory.Text := ''
   else
     lblMemory.Text := 'M: ' + FloatToStr(dMemory);

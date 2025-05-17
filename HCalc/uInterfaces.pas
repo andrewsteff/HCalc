@@ -4,7 +4,7 @@ interface
 
 type
   ICalculatorDisplay = interface
-    procedure UpdateUI(strText: string; strHistory: string; dMemory: double);
+    procedure UpdateUI(intOrdNum: integer; strText: string; strHistory: string; dMemory: double);
   end;
 
   TOperatorEnum = (opNull, opAdd, opSubtract, opMultiply, opDivide);
