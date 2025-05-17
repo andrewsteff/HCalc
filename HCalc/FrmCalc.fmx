@@ -17,6 +17,7 @@ object FormCalc: TFormCalc
     Size.Height = 70.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
+    OnClick = pnTextClick
     object txtMonitor: TLabel
       Align = Client
       StyledSettings = [FontColor]
@@ -28,6 +29,7 @@ object FormCalc: TFormCalc
       TextSettings.HorzAlign = Trailing
       Text = '0'
       TabOrder = 2
+      OnClick = txtMonitorClick
     end
   end
   object pnHistory: TPanel
@@ -50,6 +52,7 @@ object FormCalc: TFormCalc
         '1234567890123456789012345678901234567890 1234567890 1234567890 1' +
         '234567890 1234567890'
       TabOrder = 1
+      OnClick = lblHistoryClick
     end
     object lblMemory: TLabel
       Align = Top

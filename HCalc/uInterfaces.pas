@@ -15,6 +15,8 @@ type
     procedure SetOperator(op: TOperatorEnum);
     procedure Equals;
     procedure CancelAll;
+    procedure CancelOne;
+    procedure CancelChar;
     procedure CalcMemory(mdirection: integer);
   end;
 

@@ -48,6 +48,9 @@ type
     procedure OperClick(Sender: TObject);
     procedure btnClearClick(Sender: TObject);
     procedure btnMemClick(Sender: TObject);
+    procedure lblHistoryClick(Sender: TObject);
+    procedure txtMonitorClick(Sender: TObject);
+    procedure pnTextClick(Sender: TObject);
   private
     { Private declarations }
     FCalculator: ICalculator;
@@ -85,6 +88,13 @@ end;
 procedure TFormCalc.FormShow(Sender: TObject);
 begin
   // ActiveControl := txtHistory; txtHistory.SelStart := length(txtHistory.Text); txtHistory.SelLength := 0;
+end;
+
+
+// When click on history must do backspace
+procedure TFormCalc.lblHistoryClick(Sender: TObject);
+begin
+  FCalculator.CancelOne();
 end;
 
 procedure TFormCalc.btnClearClick(Sender: TObject);
@@ -158,6 +168,16 @@ begin
 
   FCalculator.SetOperator(opOperator);
   // ActiveControl := txtHistory; txtHistory.SelStart := length(txtHistory.Text); txtHistory.SelLength := 0;
+end;
+
+procedure TFormCalc.pnTextClick(Sender: TObject);
+begin
+  FCalculator.CancelChar;
+end;
+
+procedure TFormCalc.txtMonitorClick(Sender: TObject);
+begin
+  FCalculator.CancelChar;
 end;
 
 procedure TFormCalc.btnPointClick(Sender: TObject);

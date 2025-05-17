@@ -29,6 +29,8 @@ type
     procedure SetOperator(op: TOperatorEnum);
     procedure Equals;
     procedure CancelAll;
+    procedure CancelOne;
+    procedure CancelChar;
     procedure CalcMemory(mdir: integer);
   end;
 
@@ -246,6 +248,26 @@ begin
     FHistory.HistoryToString, FMemory);
 end;
 
+procedure TCalculator.CancelOne;
+begin
+end;
+
+procedure TCalculator.CancelChar;
+var intOperLen: integer;
+begin
+  // FOperNum  -  operand number (1 or 2)
+  intOperLen := length(FOperand[FOperNum]);
+  if not OperandIsEmpty(FOperand[FOperNum]) then begin
+    if intOperLen > 1 then
+    FOperand[FOperNum] := Copy(FOperand[FOperNum], 1, intOperLen - 1)
+    else
+    FOperand[FOperNum] := '0';
+  end;
+  FHistory.UpdateHistory(FOperand[FOperNum], huptReplaceLast);
+  FDisplay.UpdateUI(FOperNum, FOperand[FOperNum],
+    FHistory.HistoryToString, FMemory);
+end;
+
 function TCalculator.OperandIsEmpty(strOperand: string): boolean;
 begin
   result := false;
@@ -261,11 +283,11 @@ begin
   memOp := 0;
   if (FOperNum = 2) then
   begin
-    if OperandIsEmpty(FOperand[2]) then
+    if OperandIsEmpty(FOperand[FOperNum]) then
     begin // StrToFloatDef(FOperand[2], 0) = 0
       memOp := 1;
-      FOperand[2] := FMemory.ToString;
-      FHistory.UpdateHistory(FOperand[2], huptAddNew);
+      FOperand[FOperNum] := FMemory.ToString;
+      FHistory.UpdateHistory(FOperand[FOperNum], huptAddNew);
     end;
     Equals;
   end;
